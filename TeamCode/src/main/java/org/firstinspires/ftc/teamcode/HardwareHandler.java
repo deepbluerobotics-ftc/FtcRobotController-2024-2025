@@ -25,8 +25,8 @@ public class HardwareHandler {
         backLeftDrive  = hardwareMap.get(DcMotor.class, "back_left_drive");
         backRightDrive = hardwareMap.get(DcMotor.class, "back_right_drive");
         intake = hm.get(DcMotor.class, "intake");
-        horizontalArm = hm.get(DcMotor.class, "horizontal_arm");
-        verticalArm = hm.get(DcMotor.class, "vertical_arm");
+        verticalArm = hm.get(DcMotor.class, "horizontal_arm");
+        horizontalArm = hm.get(DcMotor.class, "vertical_arm");
         intakeWheel = hm.get(Servo.class, "intake_wheel");
 
         backLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -34,15 +34,15 @@ public class HardwareHandler {
         frontLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        horizontalArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         verticalArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        horizontalArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
         backRightDrive.setDirection(DcMotor.Direction.FORWARD);
         frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
         frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
-        horizontalArm.setDirection(DcMotor.Direction.REVERSE);
         verticalArm.setDirection(DcMotor.Direction.REVERSE);
+        horizontalArm.setDirection(DcMotor.Direction.REVERSE);
         intake.setDirection(DcMotor.Direction.FORWARD);
         intakeWheel.setDirection(Servo.Direction.REVERSE);
 
@@ -55,14 +55,14 @@ public class HardwareHandler {
         backRightDrive.setPower(0);
         frontLeftDrive.setPower(0);
         frontRightDrive.setPower(0);
-        horizontalArm.setPower(0);
         verticalArm.setPower(0);
+        horizontalArm.setPower(0);
         intake.setPower(0);
 
         intakeWheel.setPosition(0); //don't know position yet
     }
     public static void setPower(double frontLeft, double frontRight, double backLeft, double backRight,
-                                double intakePower, double horizontalArmPower, double verticalArmPower,
+                                double intakePower, double verticalArmPower, double horizontalArmPower,
                                 double intakeWheelPosition)
     {
         backLeftDrive.setPower(backLeft);
@@ -70,8 +70,8 @@ public class HardwareHandler {
         frontLeftDrive.setPower(frontLeft);
         frontRightDrive.setPower(frontRight);
         intake.setPower(intakePower);
-        horizontalArm.setPower(horizontalArmPower);
-        verticalArm.setPower(verticalArmPower);
+        verticalArm.setPower(horizontalArmPower);
+        horizontalArm.setPower(verticalArmPower);
 
         intakeWheel.setPosition(intakeWheelPosition);
     }
