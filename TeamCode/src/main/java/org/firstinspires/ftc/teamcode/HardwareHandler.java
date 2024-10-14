@@ -14,6 +14,7 @@ public class HardwareHandler {
     public static DcMotor verticalArm = null;
 
     public static Servo intakeWheel = null;
+    public static Servo platform = null;
 
     public HardwareMap hardwareMap;
 
@@ -28,6 +29,7 @@ public class HardwareHandler {
         verticalArm = hm.get(DcMotor.class, "horizontal_arm");
         horizontalArm = hm.get(DcMotor.class, "vertical_arm");
         intakeWheel = hm.get(Servo.class, "intake_wheel");
+        platform = hm.get(Servo.class, "platform");
 
         backLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -45,6 +47,7 @@ public class HardwareHandler {
         horizontalArm.setDirection(DcMotor.Direction.REVERSE);
         intake.setDirection(DcMotor.Direction.FORWARD);
         intakeWheel.setDirection(Servo.Direction.REVERSE);
+        platform.setDirection(Servo.Direction.REVERSE);
 
         resetPower();
         resetRunModes();
@@ -60,10 +63,11 @@ public class HardwareHandler {
         intake.setPower(0);
 
         intakeWheel.setPosition(0); //don't know position yet
+        platform.setPosition(0);
     }
     public static void setPower(double frontLeft, double frontRight, double backLeft, double backRight,
                                 double intakePower, double verticalArmPower, double horizontalArmPower,
-                                double intakeWheelPosition)
+                                double intakeWheelPosition, double platformPosition)
     {
         backLeftDrive.setPower(backLeft);
         backRightDrive.setPower(backRight);
@@ -74,6 +78,7 @@ public class HardwareHandler {
         horizontalArm.setPower(verticalArmPower);
 
         intakeWheel.setPosition(intakeWheelPosition);
+        platform.setPosition(platformPosition);
     }
     public static void resetRunModes() {
         backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
