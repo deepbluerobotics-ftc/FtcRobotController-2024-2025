@@ -95,17 +95,19 @@ public class Tele extends OpMode {
         }
 
         //Intake Motor logic
-        if (gamepad1.y) {
+        if (gamepad1.dpad_left) {
             intakePower = -0.7;
-        } else if (gamepad1.x) {
+        } else if (gamepad1.dpad_right) {
             intakePower = 0.7;
         }else {
             intakePower = 0;
         }
 
         //intake Wheel Logic
-        if (gamepad1.b){
-            intakeWheelPosition = 300;
+        if (gamepad1.y){
+            intakeWheelPosition = 1;
+        } else if(gamepad1.x){
+            intakeWheelPosition = -1;
         } else {
             intakeWheelPosition = 0;
         }
