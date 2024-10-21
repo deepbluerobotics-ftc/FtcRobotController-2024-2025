@@ -136,9 +136,16 @@ public class Tele extends OpMode {
 
 
         //Set powers and positions
-        handler.setPower(frontLeftPower, frontRightPower, backLeftPower, backRightPower, intakePower, verticalArmPower, horizontalArmPower,
-                intakeWheelPosition, platformPosition);
+        backLeftDrive.setPower(backLeftPower);
+        backRightDrive.setPower(backRightPower);
+        frontLeftDrive.setPower(frontLeftPower);
+        frontRightDrive.setPower(frontRightPower);
+        intake.setPower(intakePower);
+        verticalArm.setPower(horizontalArmPower);
+        horizontalArm.setPower(verticalArmPower);
 
+        intakeWheel.setPosition(intakeWheelPosition);
+        platform.setPosition(platformPosition);
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.addData("Front Left/Right", "%4.2f, %4.2f", frontLeftPower, frontRightPower);
