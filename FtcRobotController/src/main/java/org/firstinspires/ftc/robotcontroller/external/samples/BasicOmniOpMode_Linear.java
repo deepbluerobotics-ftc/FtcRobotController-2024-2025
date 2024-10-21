@@ -103,7 +103,7 @@ public class BasicOmniOpMode_Linear extends LinearOpMode {
         rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
         rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
 
-        intake.setDirection(DcMotorSimple.Direction.FORWARD);
+        intake.setDirection(DcMotor.Direction.FORWARD);
 
         // Wait for the game to start (driver presses START)
         telemetry.addData("Status", "Initialized");
@@ -143,8 +143,8 @@ public class BasicOmniOpMode_Linear extends LinearOpMode {
             }
 
             double intakePower = 0;
-            if (gamepad1.dpad_right){
-                intakePower = 0.7;
+            if (gamepad1.dpad_left){
+                intakePower = -0.7;
             }else if (gamepad1.dpad_right) {
                 intakePower = 0.7;
             }else {
@@ -179,7 +179,7 @@ public class BasicOmniOpMode_Linear extends LinearOpMode {
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Front left/Right", "%4.2f, %4.2f", leftFrontPower, rightFrontPower);
             telemetry.addData("Back  left/Right", "%4.2f, %4.2f", leftBackPower, rightBackPower);
-            telemetry.addData("intake","%4.2f, %4.2f", intakePower);
+            telemetry.addData("intake: ", intakePower);
             telemetry.update();
         }
     }}
