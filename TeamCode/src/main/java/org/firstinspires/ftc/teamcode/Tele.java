@@ -55,6 +55,10 @@ public class Tele extends OpMode {
         intake = handler.intake;
         horizontalArm = handler.horizontalArm;
         verticalArm = handler.verticalArm;
+        intakeWheel = handler.intakeWheel;
+        platform = handler.platform;
+
+
 
         handler.resetRunModes();
 
