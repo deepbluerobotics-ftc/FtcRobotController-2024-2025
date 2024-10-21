@@ -33,10 +33,6 @@ public class Tele extends OpMode {
     private double verticalArmPower = 0;
     private double platformPosition = 0;
 
-    private double max = 0;
-    private double axial = 0;
-    private double lateral = 0;
-    private double yaw = 0;
 
     private boolean intakeRotating = false;
 
@@ -72,6 +68,11 @@ public class Tele extends OpMode {
 
     @Override
     public void loop() {
+        double max = 0;
+        double axial = 0;
+        double lateral = 0;
+        double yaw = 0;
+
         axial = -gamepad1.left_stick_y;
         lateral = gamepad1.left_stick_x;
         yaw = gamepad1.right_stick_x;
