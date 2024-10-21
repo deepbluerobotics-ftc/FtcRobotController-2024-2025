@@ -75,6 +75,7 @@ public class BasicOmniOpMode_Linear extends LinearOpMode {
     private DcMotor rightFrontDrive = null;
     private DcMotor rightBackDrive = null;
     private DcMotor intake = null;
+
     @Override
     public void runOpMode() {
 
@@ -84,9 +85,7 @@ public class BasicOmniOpMode_Linear extends LinearOpMode {
         leftBackDrive  = hardwareMap.get(DcMotor.class, "back_left_drive");
         rightFrontDrive = hardwareMap.get(DcMotor.class, "front_right_drive");
         rightBackDrive = hardwareMap.get(DcMotor.class, "back_right_drive");
-
         intake = hardwareMap.get(DcMotor.class, "intake");
-
 
         // ########################################################################################
         // !!!            IMPORTANT Drive Information. Test your motor directions.            !!!!!
@@ -102,7 +101,6 @@ public class BasicOmniOpMode_Linear extends LinearOpMode {
         leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
         rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
         rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
-
         intake.setDirection(DcMotorSimple.Direction.FORWARD);
 
         // Wait for the game to start (driver presses START)
@@ -127,7 +125,6 @@ public class BasicOmniOpMode_Linear extends LinearOpMode {
             double rightFrontPower = axial - lateral - yaw;
             double leftBackPower   = axial - lateral + yaw;
             double rightBackPower  = axial + lateral - yaw;
-
 
             // Normalize the values so no wheel power exceeds 100%
             // This ensures that the robot maintains the desired motion.
@@ -172,14 +169,13 @@ public class BasicOmniOpMode_Linear extends LinearOpMode {
             rightFrontDrive.setPower(rightFrontPower);
             leftBackDrive.setPower(leftBackPower);
             rightBackDrive.setPower(rightBackPower);
-
             intake.setPower(intakePower);
-
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Front left/Right", "%4.2f, %4.2f", leftFrontPower, rightFrontPower);
             telemetry.addData("Back  left/Right", "%4.2f, %4.2f", leftBackPower, rightBackPower);
             telemetry.addData("intake", "%4.2f, %4.2f", intakePower);
+
             telemetry.update();
         }
     }}
