@@ -80,10 +80,10 @@ public class BasicOmniOpMode_Linear extends LinearOpMode {
 
         // Initialize the hardware variables. Note that the strings used here must correspond
         // to the names assigned during the robot configuration step on the DS or RC devices.
-        leftFrontDrive  = hardwareMap.get(DcMotor.class, "left_front_drive");
-        leftBackDrive  = hardwareMap.get(DcMotor.class, "left_back_drive");
-        rightFrontDrive = hardwareMap.get(DcMotor.class, "right_front_drive");
-        rightBackDrive = hardwareMap.get(DcMotor.class, "right_back_drive");
+        leftFrontDrive  = hardwareMap.get(DcMotor.class, "front_left_drive");
+        leftBackDrive  = hardwareMap.get(DcMotor.class, "back_left_drive");
+        rightFrontDrive = hardwareMap.get(DcMotor.class, "front_right_drive");
+        rightBackDrive = hardwareMap.get(DcMotor.class, "back_right_drive");
 
         intake = hardwareMap.get(DcMotor.class, "intake");
 
@@ -145,8 +145,8 @@ public class BasicOmniOpMode_Linear extends LinearOpMode {
             double intakePower = 0;
             if (gamepad1.dpad_right){
                 intakePower = 0.7;
-            }else if (gamepad1.dpad_right) {
-                intakePower = 0.7;
+            }else if (gamepad1.dpad_left) {
+                intakePower = -0.7;
             }else {
                 intakePower = 0;
             }
@@ -179,7 +179,7 @@ public class BasicOmniOpMode_Linear extends LinearOpMode {
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Front left/Right", "%4.2f, %4.2f", leftFrontPower, rightFrontPower);
             telemetry.addData("Back  left/Right", "%4.2f, %4.2f", leftBackPower, rightBackPower);
-            telemetry.addData("intake","%4.2f, %4.2f", intakePower);
+            telemetry.addData("intake", "%4.2f, %4.2f", intakePower);
             telemetry.update();
         }
     }}
