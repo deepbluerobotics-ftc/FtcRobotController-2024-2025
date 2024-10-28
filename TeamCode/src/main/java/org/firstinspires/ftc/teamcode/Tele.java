@@ -46,19 +46,16 @@ public class Tele extends OpMode {
     @Override
     public void init() {
         runtime = new ElapsedTime();
-        handler = new HardwareHandler(hardwareMap);
 
-        frontLeftDrive = handler.frontLeftDrive;
-        backLeftDrive = handler.backLeftDrive;
-        frontRightDrive = handler.frontRightDrive;
-        backRightDrive = handler.backRightDrive;
-        intake = handler.intake;
-        horizontalArm = handler.horizontalArm;
-        verticalArm = handler.verticalArm;
-        intakeWheel = handler.intakeWheel;
-        platform = handler.platform;
-
-
+        frontLeftDrive  = hardwareMap.get(DcMotor.class, "front_left_drive");
+        frontRightDrive = hardwareMap.get(DcMotor.class, "front_right_drive");
+        backLeftDrive  = hardwareMap.get(DcMotor.class, "back_left_drive");
+        backRightDrive = hardwareMap.get(DcMotor.class, "back_right_drive");
+        intake = hardwareMap.get(DcMotor.class, "intake");
+        verticalArm = hardwareMap.get(DcMotor.class, "horizontal_arm");
+        horizontalArm = hardwareMap.get(DcMotor.class, "vertical_arm");
+        intakeWheel = hardwareMap.get(Servo.class, "intake_wheel");
+        platform = hardwareMap.get(Servo.class, "platform");
 
         handler.resetRunModes();
 
