@@ -33,7 +33,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp(name="Basic: Arms", group="Linear OpMode")
@@ -41,9 +40,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class Arms extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
-    private double horizontalArm = 0;
-    private double verticalArm = 0;
-    public HardwareMap hardwareMap;
+    private DcMotor horizontalArm = null;
+    private DcMotor verticalArm = null;
 
     private double horizontalArmPower = 0;
     private double verticalArmPower = 0;
@@ -53,20 +51,13 @@ public class Arms extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        verticalArm = hardwareMap.get(Double.class, "horizontal_arm");
-        horizontalArm = hardwareMap.get(Double.class, "vertical_arm");
+        verticalArm = hardwareMap.get(DcMotor.class, "horizontal_arm");
+        horizontalArm = hardwareMap.get(DcMotor.class, "vertical_arm");
+
+        verticalArm.setDirection(DcMotor.Direction.REVERSE);
+        horizontalArm.setDirection(DcMotor.Direction.REVERSE);
         // vert Arm logic
-        if (gamepad1.right_bumper){
-            verticalArmPower = gamepad1.right_trigger;
-        } else{
-            verticalArmPower = -gamepad1.right_trigger;
-        }
-        //horizontal arm Logic
-        if (gamepad1.left_bumper){
-            horizontalArmPower = gamepad1.left_trigger;
-        } else {
-            horizontalArmPower = -gamepad1.left_trigger;
-        }
+
 
         // Wait for the game to start (driver presses START)
         telemetry.addData("Status", "Initialized");
@@ -77,8 +68,21 @@ public class Arms extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-
+            if (gamepad1.right_bumper){
+                verticalArmPower = gamepad1.right_trigger;
+            } else{
+                verticalArmPower = -gamepad1.right_trigger;
+            }
+            //horizontal arm Logic
+            if (gamepad1.left_bumper){
+                horizontalArmPower = gamepad1.left_trigger;
+            } else {
+                horizontalArmPower = -gamepad1.left_trigger;
+            }
+            verticalArm.setPower(verticalArmPower);
+            horizontalArm.setPower(horizontalArmPower);
             telemetry.addData("Status", "Run Time: " + runtime.toString());
+            telemetry.addData("Front left/Right", "%4.2f, %4.2f", verticalArmPower, horizontalArmPower);
 
             telemetry.update();
         }
