@@ -65,7 +65,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  */
 
 @TeleOp(name="Basic: Omni Iterative OpMode", group="Linear OpMode")
-@Disabled
+
 public class BasicOmniOpMode_Iterative extends LinearOpMode {
 
     // Declare OpMode members for each of the 4 motors.
