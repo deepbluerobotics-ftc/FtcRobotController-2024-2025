@@ -20,6 +20,7 @@ public class Intake extends LinearOpMode {
         intakeWheel = hardwareMap.get(Servo.class, "intake_wheel");
         intakeWheel.setDirection(Servo.Direction.REVERSE);
         intake.setDirection(DcMotorSimple.Direction.FORWARD);
+
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 

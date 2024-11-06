@@ -82,7 +82,7 @@ public class Arms extends LinearOpMode {
             verticalArm.setPower(verticalArmPower);
             horizontalArm.setPower(horizontalArmPower);
             telemetry.addData("Status", "Run Time: " + runtime.toString());
-            telemetry.addData("Front left/Right", "%4.2f, %4.2f", verticalArmPower, horizontalArmPower);
+            telemetry.addData("Vertical Arm/Horizontal Arm", "%4.2f, %4.2f", verticalArmPower, horizontalArmPower);
 
             telemetry.update();
         }
