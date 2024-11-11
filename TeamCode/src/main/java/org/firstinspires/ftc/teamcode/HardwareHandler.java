@@ -62,8 +62,8 @@ public class HardwareHandler {
         horizontalArm.setPower(0);
         intake.setPower(0);
 
-        intakeWheel.setPosition(0); //don't know position yet
-        platform.setPosition(0);
+        intakeWheel.setPosition(0.5);
+        platform.setPosition(0.5);
     }
     public static void setPower(double frontLeft, double frontRight, double backLeft, double backRight,
                                 double intakePower, double verticalArmPower, double horizontalArmPower,
