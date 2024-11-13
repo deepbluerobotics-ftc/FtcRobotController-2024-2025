@@ -77,6 +77,7 @@ public class BasicOmniOpMode_Linear extends LinearOpMode {
     private DcMotor intake = null;
 
     @Override
+
     public void runOpMode() {
 
         // Initialize the hardware variables. Note that the strings used here must correspond
