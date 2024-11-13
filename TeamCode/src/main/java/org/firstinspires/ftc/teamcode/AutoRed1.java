@@ -56,6 +56,17 @@ public class AutoRed1 extends LinearOpMode {
 
         // Step 2: Turn left 43.82 degrees
         turnLeft(43.82); // Turn left 43.82 degrees
+
+        //Step 3 move arm up
+        moveArm(38.75);
+        //Step 4 Rotate platform
+        setPlatformServo(300);
+        //Step 5 Move arm down
+        moveArm(-38.75);
+        //Step 6 Turn ___ degrees
+        turnLeft(-43.82);
+        //Step 7 move backwards
+        moveForward(-53);
     }
 
     // Move forward by a given distance in inches
@@ -97,11 +108,33 @@ public class AutoRed1 extends LinearOpMode {
         backLeftDrive.setPower(0);
         backRightDrive.setPower(0);
     }
+    public void moveArm(double inches) {
+        double distanceInMeters = inches;
+        double WHEEL_CIRCUMFERENCE = 11.780972451;
+        double rotations = distanceInMeters / WHEEL_CIRCUMFERENCE;
+        int targetTicks = (int)(rotations * 1120); // 1120 ticks per full rotation
 
+        // Reset and set target positions for each motor
+        verticalArmMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        verticalArmMotor.setTargetPosition(targetTicks);
+
+        verticalArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        verticalArmMotor.setPower(1.0);
+
+        while (opModeIsActive() && verticalArmMotor.isBusy()) {
+            telemetry.addData("Moving Arm", "Distance: %2.5f", inches);
+            telemetry.update();
+        }
+
+        // Stop all motors
+        verticalArmMotor.setPower(0);
+    }
     // Turn the robot left by a given number of degrees
     public void turnLeft(double degrees) {
         double radians = Math.toRadians(degrees);
-        int targetTicks = (int)(radians / (2 * Math.PI) * 1120); // Estimate number of encoder ticks
+        int targetTicks = (int) (radians / (2 * Math.PI) * 1120); // Estimate number of encoder ticks
 
         // Reset encoders
         frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -135,5 +168,14 @@ public class AutoRed1 extends LinearOpMode {
         backLeftDrive.setPower(0);
         backRightDrive.setPower(0);
     }
+    public void setPlatformServo(double position){
+        platformServo.setPosition(position);
+        while (opModeIsActive() && platformServo.getPosition() != position){
+            telemetry.addData("PlatformServo",  position);
+            telemetry.update();
+        }
+        platformServo.setPosition(0);
+    }
+
 }
 
