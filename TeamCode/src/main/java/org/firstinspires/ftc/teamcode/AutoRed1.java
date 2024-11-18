@@ -65,6 +65,7 @@ public class AutoRed1 extends LinearOpMode {
         moveArm(-38.75);
         //Step 7 move backwards
         moveForward(-66.5);
+        moveArm(2);
     }
 
     // Move forward by a given distance in inches
