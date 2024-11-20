@@ -58,14 +58,14 @@ public class AutoRed1 extends LinearOpMode {
         turnLeft(43.82); // Turn left 43.82 degrees
 
         //Step 3 move arm up
-        moveArm(38.75);
+        //moveArm(38.75);
         //Step 4 Rotate platform
-        setPlatformServo(300);
+        setPlatformServo(0.7);
         //Step 5 Move arm down
-        moveArm(-38.75);
+        //moveArm(-38.75);
         //Step 7 move backwards
-        moveForward(-66.5);
-        moveArm(2);
+        //moveForward(-66.5);
+        //moveArm(2);
     }
 
     // Move forward by a given distance in inches

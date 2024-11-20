@@ -81,7 +81,7 @@ public class Tele extends LinearOpMode {
         rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
         rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
 
-        platform.setPosition(90);
+        platform.setPosition(0.9);
         
         // Wait for the game to start (driver presses START)
         telemetry.addData("Status", "Initialized");
@@ -112,7 +112,7 @@ public class Tele extends LinearOpMode {
             max = Math.max(max, Math.abs(leftBackPower));
             max = Math.max(max, Math.abs(rightBackPower));
 
-            if (max > 1.0) {
+            if (max > 1) { 
                 leftFrontPower  /= max;
                 rightFrontPower /= max;
                 leftBackPower   /= max;
@@ -151,11 +151,11 @@ public class Tele extends LinearOpMode {
             }
 
             if(gamepad1.y){
-                platform.setPosition(225);
+                platform.setPosition(.9);
             } else if (gamepad1.a) {
-                platform.setPosition(90);
+                platform.setPosition(0.33);
             }else {
-                platform.setPosition(180);
+                platform.setPosition(0.5);
             }
 
             intake.setPower(intakePower);
@@ -171,6 +171,8 @@ public class Tele extends LinearOpMode {
             telemetry.addData("Back  left/Right", "%4.2f, %4.2f", leftBackPower, rightBackPower);
             telemetry.addData("Vertical Arm/Horizontal Arm", "%4.2f, %4.2f", verticalArmPower, horizontalArmPower);
             telemetry.addData("intake",  intakePower);
+            telemetry.addData("platform", platform.getPosition());
+            telemetry.addData("Intake wheel", intakeWheel.getPosition());
             telemetry.update();
         }
     }}
