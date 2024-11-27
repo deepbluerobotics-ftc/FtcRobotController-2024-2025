@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -11,40 +12,49 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class AutoRed1 extends LinearOpMode {
 
     private ElapsedTime runtime;
-    private HardwareHandler handler;
-    private HardwareMap hardwareMap;
+    //private HardwareHandler handler;
+    //private HardwareMap hardwareMap;
 
     // Motor definitions
     public static DcMotor frontLeftDrive = null;
     public static DcMotor backLeftDrive = null;
     public static DcMotor frontRightDrive = null;
     public static DcMotor backRightDrive = null;
-    public static DcMotor intakeMotor = null;
-    public static DcMotor horizontalArmMotor = null;
-    public static DcMotor verticalArmMotor = null;
+    public static DcMotor intake = null;
+    public static DcMotor horizontalArm = null;
+    public static DcMotor verticalArm = null;
 
     // Servo definitions
-    public static Servo intakeWheelServo = null;
-    public static Servo platformServo = null;
+    public static Servo intakeWheel = null;
+    public static Servo platform = null;
 
     @Override
-    public void runOpMode() throws InterruptedException {
+    public void runOpMode() {
         runtime = new ElapsedTime();
-        handler = new HardwareHandler(hardwareMap);
+        //handler = new HardwareHandler(hardwareMap);
 
         // Hardware mapping
         frontLeftDrive  = hardwareMap.get(DcMotor.class, "front_left_drive");
         frontRightDrive = hardwareMap.get(DcMotor.class, "front_right_drive");
         backLeftDrive   = hardwareMap.get(DcMotor.class, "back_left_drive");
         backRightDrive  = hardwareMap.get(DcMotor.class, "back_right_drive");
-        intakeMotor     = hardwareMap.get(DcMotor.class, "intake_motor");
-        verticalArmMotor = hardwareMap.get(DcMotor.class, "vertical_arm_motor");
-        horizontalArmMotor = hardwareMap.get(DcMotor.class, "horizontal_arm_motor");
-        intakeWheelServo = hardwareMap.get(Servo.class, "intake_wheel_servo");
-        platformServo     = hardwareMap.get(Servo.class, "platform_servo");
+        intake     = hardwareMap.get(DcMotor.class, "intake");
+        verticalArm = hardwareMap.get(DcMotor.class, "vertical_arm");
+        horizontalArm = hardwareMap.get(DcMotor.class, "horizontal_arm");
+        intakeWheel = hardwareMap.get(Servo.class, "intake_wheel");
+        platform     = hardwareMap.get(Servo.class, "platform");
 
-        handler.resetTargetPositions();
-        handler.setAutoRunModes();
+        intakeWheel.setDirection(Servo.Direction.REVERSE);
+        intake.setDirection(DcMotorSimple.Direction.FORWARD);
+        verticalArm.setDirection(DcMotor.Direction.REVERSE);
+        horizontalArm.setDirection(DcMotor.Direction.REVERSE);
+        frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
+        backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
+        frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
+        backRightDrive.setDirection(DcMotor.Direction.FORWARD);
+
+        //handler.resetTargetPositions();
+        //handler.setAutoRunModes();
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
@@ -52,15 +62,15 @@ public class AutoRed1 extends LinearOpMode {
         runtime.reset();
 
         // Step 1: Move forward 53 inches
-        moveForward(53); // Move 53 inches
+        moveForward(53); // Move 53 inches <-works moves far
 
         // Step 2: Turn left 43.82 degrees
-        turnLeft(43.82); // Turn left 43.82 degrees
+        turnLeft(43.82*1.5); // Turn left 43.82 degrees <- not
 
         //Step 3 move arm up
         //moveArm(38.75);
         //Step 4 Rotate platform
-        setPlatformServo(0.7);
+        setPlatformServo(70); //doesn't work
         //Step 5 Move arm down
         //moveArm(-38.75);
         //Step 7 move backwards
@@ -114,21 +124,21 @@ public class AutoRed1 extends LinearOpMode {
         int targetTicks = (int)(rotations * 1120); // 1120 ticks per full rotation
 
         // Reset and set target positions for each motor
-        verticalArmMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        verticalArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        verticalArmMotor.setTargetPosition(targetTicks);
+        verticalArm.setTargetPosition(targetTicks);
 
-        verticalArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        verticalArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        verticalArmMotor.setPower(1.0);
+        verticalArm.setPower(1.0);
 
-        while (opModeIsActive() && verticalArmMotor.isBusy()) {
+        while (opModeIsActive() && verticalArm.isBusy()) {
             telemetry.addData("Moving Arm", "Distance: %2.5f", inches);
             telemetry.update();
         }
 
         // Stop all motors
-        verticalArmMotor.setPower(0);
+        verticalArm.setPower(0);
     }
     // Turn the robot left by a given number of degrees
     public void turnLeft(double degrees) {
@@ -168,13 +178,12 @@ public class AutoRed1 extends LinearOpMode {
         backRightDrive.setPower(0);
     }
     public void setPlatformServo(double position){
-        platformServo.setPosition(position);
-        while (opModeIsActive() && platformServo.getPosition() != position){
+        platform.setPosition(position);
+        while (opModeIsActive() && platform.getPosition() != position){
             telemetry.addData("PlatformServo",  position);
             telemetry.update();
         }
-        platformServo.setPosition(0);
+        platform.setPosition(0.5);
     }
 
 }
-
