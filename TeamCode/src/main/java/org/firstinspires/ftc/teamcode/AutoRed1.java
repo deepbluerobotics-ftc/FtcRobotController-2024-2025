@@ -70,7 +70,8 @@ public class AutoRed1 extends LinearOpMode {
         //Step 3 move arm up
         //moveArm(38.75);
         //Step 4 Rotate platform
-        setPlatformServo(70); //doesn't work
+        platform.setPosition(0.7);
+        //setPlatformServo(70); //doesn't work
         //Step 5 Move arm down
         //moveArm(-38.75);
         //Step 7 move backwards
