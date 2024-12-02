@@ -87,6 +87,9 @@ public class Tele extends LinearOpMode {
         rightBackDrive.setDirection(DcMotor.Direction.REVERSE);
 
         //intake.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        verticalArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        horizontalArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
         platform.setPosition(0);
         
         // Wait for the game to start (driver presses START)
@@ -107,10 +110,10 @@ public class Tele extends LinearOpMode {
 
             // Combine the joystick requests for each axis-motion to determine each wheel's power.
             // Set up a variable for each drive wheel to save the power level for telemetry.
-            double leftFrontPower  = (axial + lateral + yaw)/ 5;
-            double rightFrontPower = (axial - lateral - yaw) /5;
-            double leftBackPower   = (axial - lateral + yaw) /5;
-            double rightBackPower  = (axial + lateral - yaw) /5;
+            double leftFrontPower  = (axial + lateral + yaw)/ 3;
+            double rightFrontPower = (axial - lateral - yaw) /3;
+            double leftBackPower   = (axial - lateral + yaw) /3;
+            double rightBackPower  = (axial + lateral - yaw) /3;
 
             // Normalize the values so no wheel power exceeds 100%
             // This ensures that the robot maintains the desired motion.
@@ -165,7 +168,13 @@ public class Tele extends LinearOpMode {
                 verticalArmPower = 0;
             }
 
-            verticalArm.setPower(verticalArmPower);
+            if (Math.abs(verticalArmPower)>0.1){
+                verticalArmPos += (int)(verticalArmPower);
+                verticalArmPos = Math.max(intakePos, 2700);
+                verticalArmPos = Math.min(intakePos, 0);
+                verticalArm.setTargetPosition((int)(verticalArmPos*7.5));
+                verticalArm.setPower(verticalArmPower);
+            }
 
             //Horizontal Arm stuff
             if (gamepad1.dpad_right){
@@ -177,6 +186,15 @@ public class Tele extends LinearOpMode {
             }
 
             horizontalArm.setPower(horizontalArmPower);
+            
+            //intake "wheel"
+            if(gamepad1.b){
+                intakeWheel.setPosition(0.9);
+            } else if (gamepad1.x) {
+                intakeWheel.setPosition(0.1);
+            }else {
+                intakeWheel.setPosition(0.5);
+            }
 
             // Send calculated power to wheels
             leftFrontDrive.setPower(leftFrontPower);
