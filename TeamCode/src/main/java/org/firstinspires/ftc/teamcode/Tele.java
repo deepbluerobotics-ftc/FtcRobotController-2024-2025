@@ -102,7 +102,7 @@ public class Tele extends LinearOpMode {
             double max;
 
             // POV Mode uses left joystick to go forward & strafe, and right joystick to rotate.
-            double axial   = gamepad1.right_stick_y;  // Note: pushing stick forward gives negative value
+            double axial   = -gamepad1.right_stick_y;  // Note: pushing stick forward gives negative value
             double lateral =  gamepad1.right_stick_x;
             double yaw     =  gamepad1.left_stick_x;
 
@@ -128,7 +128,7 @@ public class Tele extends LinearOpMode {
 
             //intake motor stuff
             //Rotates normally
-            intakePower = (gamepad1.left_trigger - gamepad1.right_trigger);
+            intakePower = (gamepad1.left_trigger - gamepad1.right_trigger)/3;
             /* No idea if works was an attempt for limits, but rotation?
             if (Math.abs(intakePower)>0.1){
                 intakePos += (int)(intakePower);
@@ -170,7 +170,7 @@ public class Tele extends LinearOpMode {
 
             if (Math.abs(verticalArmPower)>0.1){
                 verticalArmPos += (int)(verticalArmPower);
-                verticalArmPos = Math.max(intakePos, 2700);
+                verticalArmPos = Math.min(intakePos, 2700);
                 verticalArmPos = Math.min(intakePos, 0);
                 verticalArm.setTargetPosition((int)(verticalArmPos*7.5));
                 verticalArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
