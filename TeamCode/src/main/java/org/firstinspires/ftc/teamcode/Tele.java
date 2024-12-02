@@ -189,7 +189,7 @@ public class Tele extends LinearOpMode {
             horizontalArm.setPower(horizontalArmPower);
 
             //horizontalArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            
+               
             
             //intake "wheel"
             if(gamepad1.b){
