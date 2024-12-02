@@ -86,9 +86,7 @@ public class Tele extends LinearOpMode {
         rightFrontDrive.setDirection(DcMotor.Direction.REVERSE);
         rightBackDrive.setDirection(DcMotor.Direction.REVERSE);
 
-        //intake.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        verticalArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        horizontalArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
 
         platform.setPosition(0);
         
@@ -145,7 +143,9 @@ public class Tele extends LinearOpMode {
              //Moves intake motor to be 90?
             if (gamepad1.y){
                 intake.setTargetPosition((int)(90*7.5)); //-> needs an encoder to test
+                intake.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 intake.setPower(0.3);
+
             }
 
              */
@@ -173,6 +173,7 @@ public class Tele extends LinearOpMode {
                 verticalArmPos = Math.max(intakePos, 2700);
                 verticalArmPos = Math.min(intakePos, 0);
                 verticalArm.setTargetPosition((int)(verticalArmPos*7.5));
+                verticalArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 verticalArm.setPower(verticalArmPower);
             }
 
@@ -186,6 +187,9 @@ public class Tele extends LinearOpMode {
             }
 
             horizontalArm.setPower(horizontalArmPower);
+
+            //horizontalArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            
             
             //intake "wheel"
             if(gamepad1.b){
