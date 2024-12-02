@@ -58,6 +58,10 @@ public class Tele extends LinearOpMode {
     private double verticalArmPower = 0;
     private double intakePower = 0;
 
+    private int intakePos = 0;
+    private int verticalArmPos = 0;
+    private int horizontalArmPos = 0;
+
     @Override
     public void runOpMode() {
 
@@ -82,6 +86,7 @@ public class Tele extends LinearOpMode {
         rightFrontDrive.setDirection(DcMotor.Direction.REVERSE);
         rightBackDrive.setDirection(DcMotor.Direction.REVERSE);
 
+        //intake.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         platform.setPosition(0);
         
         // Wait for the game to start (driver presses START)
@@ -122,14 +127,26 @@ public class Tele extends LinearOpMode {
 
             //intake motor stuff
             //Rotates normally
-            intakePower = (gamepad1.left_trigger - gamepad1.right_trigger)/ 5;
-            intake.setPower(intakePower);
-
-            /* //Moves intake motor to be 90?
-            if (gamepad1.y){
-                intake.setTargetPosition(90); //-> needs an encoder to test
+            intakePower = (gamepad1.left_trigger - gamepad1.right_trigger);
+            /* No idea if works was an attempt for limits, but rotation?
+            if (Math.abs(intakePower)>0.1){
+                intakePos += (int)(intakePower);
+                intakePos = Math.max(intakePos, 360);
+                intakePos = Math.min(intakePos, 10);
+                intake.setPower(intakePower);
             }
             */
+            intake.setPower(intakePower);
+
+            /*
+             //Moves intake motor to be 90?
+            if (gamepad1.y){
+                intake.setTargetPosition((int)(90*7.5)); //-> needs an encoder to test
+                intake.setPower(0.3);
+            }
+
+             */
+
 
             //bucket = platform
             //platform stuff
@@ -152,9 +169,9 @@ public class Tele extends LinearOpMode {
 
             //Horizontal Arm stuff
             if (gamepad1.dpad_right){
-                horizontalArmPower = 1;
-            }else if (gamepad1.dpad_left){
                 horizontalArmPower = -1;
+            }else if (gamepad1.dpad_left){
+                horizontalArmPower = 1;
             }else {
                 horizontalArmPower = 0;
             }
