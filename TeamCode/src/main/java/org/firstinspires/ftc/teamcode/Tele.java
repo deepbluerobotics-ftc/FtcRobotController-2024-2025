@@ -37,7 +37,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name="TeleOp", group="Linear OpMode")
+@TeleOp(name="Tele", group="Linear OpMode")
 
 public class Tele extends LinearOpMode {
 
@@ -56,6 +56,7 @@ public class Tele extends LinearOpMode {
 
     private double horizontalArmPower = 0;
     private double verticalArmPower = 0;
+    private double intakePower = 0;
 
     @Override
     public void runOpMode() {
@@ -95,16 +96,16 @@ public class Tele extends LinearOpMode {
             double max;
 
             // POV Mode uses left joystick to go forward & strafe, and right joystick to rotate.
-            double axial   = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
-            double lateral =  gamepad1.left_stick_x;
-            double yaw     =  gamepad1.right_stick_x;
+            double axial   = gamepad1.right_stick_y;  // Note: pushing stick forward gives negative value
+            double lateral =  gamepad1.right_stick_x;
+            double yaw     =  gamepad1.left_stick_x;
 
             // Combine the joystick requests for each axis-motion to determine each wheel's power.
             // Set up a variable for each drive wheel to save the power level for telemetry.
-            double leftFrontPower  = axial + lateral + yaw;
-            double rightFrontPower = axial - lateral - yaw;
-            double leftBackPower   = axial - lateral + yaw;
-            double rightBackPower  = axial + lateral - yaw;
+            double leftFrontPower  = (axial + lateral + yaw)/ 5;
+            double rightFrontPower = (axial - lateral - yaw) /5;
+            double leftBackPower   = (axial - lateral + yaw) /5;
+            double rightBackPower  = (axial + lateral - yaw) /5;
 
             // Normalize the values so no wheel power exceeds 100%
             // This ensures that the robot maintains the desired motion.
@@ -118,54 +119,54 @@ public class Tele extends LinearOpMode {
                 leftBackPower   /= max;
                 rightBackPower  /= max;
             }
-            if (gamepad1.right_bumper){
-                verticalArmPower = gamepad1.right_trigger;
-            } else{
-                verticalArmPower = -gamepad1.right_trigger;
+
+            //intake motor stuff
+            //Rotates normally
+            intakePower = (gamepad1.left_trigger - gamepad1.right_trigger)/ 5;
+            intake.setPower(intakePower);
+
+            /* //Moves intake motor to be 90?
+            if (gamepad1.y){
+                intake.setTargetPosition(90); //-> needs an encoder to test
             }
-            //horizontal arm Logic
-            if (gamepad1.left_bumper){
-                horizontalArmPower = gamepad1.left_trigger;
-            } else {
-                horizontalArmPower = -gamepad1.left_trigger;
+            */
+
+            //bucket = platform
+            //platform stuff
+            if(gamepad1.left_bumper){
+                platform.setPosition(1.2);
+            } else if ( gamepad1.right_bumper) {
+                platform.setPosition(0);
+            }
+
+            //Veritcal arm stuff
+            if (gamepad1.dpad_up){
+                verticalArmPower = 1;
+            }else if (gamepad1.dpad_down){
+                verticalArmPower = -1;
+            } else{
+                verticalArmPower = 0;
             }
 
             verticalArm.setPower(verticalArmPower);
-            horizontalArm.setPower(horizontalArmPower);
 
-            double intakePower = 0;
+            //Horizontal Arm stuff
             if (gamepad1.dpad_right){
-                intakePower = 0.4;
-            }else if (gamepad1.dpad_left) {
-                intakePower = -0.4;
+                horizontalArmPower = 1;
+            }else if (gamepad1.dpad_left){
+                horizontalArmPower = -1;
             }else {
-                intakePower = 0;
+                horizontalArmPower = 0;
             }
 
-            if (gamepad1.dpad_up){
-                intakeWheel.setPosition(0.1);
-            } else if (gamepad1.dpad_down) {
-                intakeWheel.setPosition(0.9);
-            }else{
-                intakeWheel.setPosition(0.5); //number that makes it stop
-            }
-
-            if(gamepad1.y){
-                platform.setPosition(.9);
-            } else if (gamepad1.a) {
-                platform.setPosition(0.33);
-            }else {
-                platform.setPosition(0.5);
-            }
-
-            intake.setPower(intakePower);
+            horizontalArm.setPower(horizontalArmPower);
 
             // Send calculated power to wheels
             leftFrontDrive.setPower(leftFrontPower);
             rightFrontDrive.setPower(rightFrontPower);
             leftBackDrive.setPower(leftBackPower);
             rightBackDrive.setPower(rightBackPower);
-            // Show the elapsed game time and wheel power.
+            // Show the elapsed game time and powers/positions.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Front left/Right", "%4.2f, %4.2f", leftFrontPower, rightFrontPower);
             telemetry.addData("Back  left/Right", "%4.2f, %4.2f", leftBackPower, rightBackPower);
