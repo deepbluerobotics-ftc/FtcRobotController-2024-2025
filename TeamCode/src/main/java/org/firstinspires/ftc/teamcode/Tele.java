@@ -81,7 +81,7 @@ public class Tele extends LinearOpMode {
         rightFrontDrive.setDirection(DcMotor.Direction.REVERSE);
         rightBackDrive.setDirection(DcMotor.Direction.REVERSE);
 
-        platform.setPosition(0.9);
+        platform.setPosition(0);
         
         // Wait for the game to start (driver presses START)
         telemetry.addData("Status", "Initialized");
