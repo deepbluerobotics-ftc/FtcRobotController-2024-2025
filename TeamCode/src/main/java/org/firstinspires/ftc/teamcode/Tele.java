@@ -30,12 +30,14 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
 
 @TeleOp(name="Tele", group="Linear OpMode")
 
@@ -78,7 +80,7 @@ public class Tele extends LinearOpMode {
         platform = hardwareMap.get(Servo.class, "platform");
 
         intakeWheel.setDirection(Servo.Direction.REVERSE);
-        intake.setDirection(DcMotorSimple.Direction.FORWARD);
+        intake.setDirection(DcMotor.Direction.FORWARD);
         verticalArm.setDirection(DcMotor.Direction.REVERSE);
         horizontalArm.setDirection(DcMotor.Direction.REVERSE);
         leftFrontDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -129,26 +131,27 @@ public class Tele extends LinearOpMode {
             //intake motor stuff
             //Rotates normally
             intakePower = (gamepad1.left_trigger - gamepad1.right_trigger)/3;
-            /* No idea if works was an attempt for limits, but rotation?
+            // No idea if works was an attempt for limits, but rotation?
+            /*
             if (Math.abs(intakePower)>0.1){
                 intakePos += (int)(intakePower);
-                intakePos = Math.max(intakePos, 360);
-                intakePos = Math.min(intakePos, 10);
+                intakePos = Math.min(intakePos, 360);
+                intakePos = Math.max(intakePos, 10);
+                intake.setTargetPosition(intakePos);
                 intake.setPower(intakePower);
-            }
-            */
+            } */
+
             intake.setPower(intakePower);
 
             /*
              //Moves intake motor to be 90?
             if (gamepad1.y){
                 intake.setTargetPosition((int)(90*7.5)); //-> needs an encoder to test
-                intake.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                intake.setPower(0.3);
+                intake.setPower(0.4);
 
             }
+            */
 
-             */
 
 
             //bucket = platform
@@ -168,15 +171,17 @@ public class Tele extends LinearOpMode {
                 verticalArmPower = 0;
             }
 
+            verticalArm.setPower(verticalArmPower);
+            /*
             if (Math.abs(verticalArmPower)>0.1){
+                telemetry.addData("VerticalArmPos", verticalArm.getCurrentPosition());
                 verticalArmPos += (int)(verticalArmPower);
                 verticalArmPos = Math.min(intakePos, 2700);
-                verticalArmPos = Math.min(intakePos, 0);
+                verticalArmPos = Math.max(intakePos, 0);
                 verticalArm.setTargetPosition((int)(verticalArmPos*7.5));
-                verticalArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 verticalArm.setPower(verticalArmPower);
             }
-
+            */
             //Horizontal Arm stuff
             if (gamepad1.dpad_right){
                 horizontalArmPower = -1;
@@ -188,7 +193,6 @@ public class Tele extends LinearOpMode {
 
             horizontalArm.setPower(horizontalArmPower);
 
-            //horizontalArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                
             
             //intake "wheel"
