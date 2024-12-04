@@ -81,8 +81,14 @@ public class Tele extends LinearOpMode {
 
         intakeWheel.setDirection(Servo.Direction.REVERSE);
         intake.setDirection(DcMotor.Direction.FORWARD);
+        intake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        intake.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         verticalArm.setDirection(DcMotor.Direction.REVERSE);
+        //verticalArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //verticalArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         horizontalArm.setDirection(DcMotor.Direction.REVERSE);
+        //horizontalArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //horizontalArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftFrontDrive.setDirection(DcMotor.Direction.FORWARD);
         leftBackDrive.setDirection(DcMotor.Direction.FORWARD);
         rightFrontDrive.setDirection(DcMotor.Direction.REVERSE);
@@ -90,7 +96,6 @@ public class Tele extends LinearOpMode {
 
 
 
-        platform.setPosition(0);
         
         // Wait for the game to start (driver presses START)
         telemetry.addData("Status", "Initialized");
@@ -132,34 +137,33 @@ public class Tele extends LinearOpMode {
             //Rotates normally
             intakePower = (gamepad1.left_trigger - gamepad1.right_trigger)/3;
             // No idea if works was an attempt for limits, but rotation?
-            /*
-            if (Math.abs(intakePower)>0.1){
-                intakePos += (int)(intakePower);
-                intakePos = Math.min(intakePos, 360);
-                intakePos = Math.max(intakePos, 10);
-                intake.setTargetPosition(intakePos);
+
+            if (intake.getCurrentPosition() > -192 && intake.getCurrentPosition()  < 0){
                 intake.setPower(intakePower);
-            } */
+            }
 
-            intake.setPower(intakePower);
+            //intake.setPower(intakePower);
 
-            /*
+
              //Moves intake motor to be 90?
             if (gamepad1.y){
-                intake.setTargetPosition((int)(90*7.5)); //-> needs an encoder to test
-                intake.setPower(0.4);
+                intake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                intake.setTargetPosition((int)(100)); //-> needs an encoder to test
+                intake.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                intake.setPower(1);
 
+            }else{
+                intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             }
-            */
-
+            
 
 
             //bucket = platform
             //platform stuff
             if(gamepad1.left_bumper){
-                platform.setPosition(1.2);
+                platform.setPosition(0.9);
             } else if ( gamepad1.right_bumper) {
-                platform.setPosition(0);
+                platform.setPosition(0.4);
             }
 
             //Veritcal arm stuff
@@ -214,6 +218,7 @@ public class Tele extends LinearOpMode {
             telemetry.addData("Front left/Right", "%4.2f, %4.2f", leftFrontPower, rightFrontPower);
             telemetry.addData("Back  left/Right", "%4.2f, %4.2f", leftBackPower, rightBackPower);
             telemetry.addData("Vertical Arm/Horizontal Arm", "%4.2f, %4.2f", verticalArmPower, horizontalArmPower);
+            telemetry.addData("Intake Position", intake.getCurrentPosition());
             telemetry.addData("intake",  intakePower);
             telemetry.addData("platform", platform.getPosition());
             telemetry.addData("Intake wheel", intakeWheel.getPosition());
