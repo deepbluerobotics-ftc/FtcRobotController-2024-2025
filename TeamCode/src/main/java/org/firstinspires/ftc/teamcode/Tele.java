@@ -138,7 +138,9 @@ public class Tele extends LinearOpMode {
             intakePower = (gamepad1.left_trigger - gamepad1.right_trigger)/3;
             // No idea if works was an attempt for limits, but rotation?
 
-            if (intake.getCurrentPosition() > -192 && intake.getCurrentPosition()  < 0){
+            if (intakePower > 0 && intake.getCurrentPosition() >= 0 || intakePower < 0 && intake.getCurrentPosition() <= -190){
+                intake.setPower(0);
+            }else {
                 intake.setPower(intakePower);
             }
 
@@ -146,16 +148,7 @@ public class Tele extends LinearOpMode {
 
 
              //Moves intake motor to be 90?
-            if (gamepad1.y){
-                intake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                intake.setTargetPosition((int)(100)); //-> needs an encoder to test
-                intake.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                intake.setPower(1);
 
-            }else{
-                intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            }
-            
 
 
             //bucket = platform
@@ -166,6 +159,7 @@ public class Tele extends LinearOpMode {
                 platform.setPosition(0.4);
             }
 
+
             //Veritcal arm stuff
             if (gamepad1.dpad_up){
                 verticalArmPower = 1;
@@ -174,18 +168,14 @@ public class Tele extends LinearOpMode {
             } else{
                 verticalArmPower = 0;
             }
-
-            verticalArm.setPower(verticalArmPower);
             /*
-            if (Math.abs(verticalArmPower)>0.1){
-                telemetry.addData("VerticalArmPos", verticalArm.getCurrentPosition());
-                verticalArmPos += (int)(verticalArmPower);
-                verticalArmPos = Math.min(intakePos, 2700);
-                verticalArmPos = Math.max(intakePos, 0);
-                verticalArm.setTargetPosition((int)(verticalArmPos*7.5));
+            if (verticalArmPower > 0 && verticalArm.getCurrentPosition() >= 0 || verticalArmPower < 0 && verticalArm.getCurrentPosition() <= -190){
+                verticalArm.setPower(0);
+            }else{
                 verticalArm.setPower(verticalArmPower);
             }
             */
+
             //Horizontal Arm stuff
             if (gamepad1.dpad_right){
                 horizontalArmPower = -1;
@@ -194,10 +184,13 @@ public class Tele extends LinearOpMode {
             }else {
                 horizontalArmPower = 0;
             }
-
-            horizontalArm.setPower(horizontalArmPower);
-
-               
+            /*
+            if (horizontalArmPower > 0 && horizontalArm.getCurrentPosition() >= 0 || horizontalArmPower < 0 && horizontalArm.getCurrentPosition() <= -190){
+                horizontalArm.setPower(0);
+            }else{
+                horizontalArm.setPower(horizontalArmPower);
+            }
+            */
             
             //intake "wheel"
             if(gamepad1.b){
@@ -218,10 +211,12 @@ public class Tele extends LinearOpMode {
             telemetry.addData("Front left/Right", "%4.2f, %4.2f", leftFrontPower, rightFrontPower);
             telemetry.addData("Back  left/Right", "%4.2f, %4.2f", leftBackPower, rightBackPower);
             telemetry.addData("Vertical Arm/Horizontal Arm", "%4.2f, %4.2f", verticalArmPower, horizontalArmPower);
+            telemetry.addData("Vertical/Horizontal Arm Position","%4.2f, %4.2f", verticalArm.getCurrentPosition(), horizontalArm.getCurrentPosition());
             telemetry.addData("Intake Position", intake.getCurrentPosition());
             telemetry.addData("intake",  intakePower);
             telemetry.addData("platform", platform.getPosition());
-            telemetry.addData("Intake wheel", intakeWheel.getPosition());
+            telemetry.addData("Intake wheel Positiion", intakeWheel.getPosition());
+
             telemetry.update();
         }
     }}

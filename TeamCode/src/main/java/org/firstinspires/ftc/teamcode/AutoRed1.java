@@ -179,13 +179,6 @@ public class AutoRed1 extends LinearOpMode {
         backLeftDrive.setPower(0);
         backRightDrive.setPower(0);
     }
-    public void setPlatformServo(double position){
-        platform.setPosition(position);
-        while (opModeIsActive() && platform.getPosition() != position){
-            telemetry.addData("PlatformServo",  position);
-            telemetry.update();
-        }
-        platform.setPosition(0.5);
-    }
+
 
 }
