@@ -64,6 +64,9 @@ public class Tele extends LinearOpMode {
     private int verticalArmPos = 0;
     private int horizontalArmPos = 0;
 
+    private int x = 1;
+    private int toggle = 1;
+
     @Override
     public void runOpMode() {
 
@@ -115,10 +118,10 @@ public class Tele extends LinearOpMode {
 
             // Combine the joystick requests for each axis-motion to determine each wheel's power.
             // Set up a variable for each drive wheel to save the power level for telemetry.
-            double leftFrontPower  = (axial + lateral + yaw)/ 3;
-            double rightFrontPower = (axial - lateral - yaw) /3;
-            double leftBackPower   = (axial - lateral + yaw) /3;
-            double rightBackPower  = (axial + lateral - yaw) /3;
+            double leftFrontPower  = (axial + lateral + yaw)/ x;
+            double rightFrontPower = (axial - lateral - yaw) /x;
+            double leftBackPower   = (axial - lateral + yaw) /x;
+            double rightBackPower  = (axial + lateral - yaw) /x;
 
             // Normalize the values so no wheel power exceeds 100%
             // This ensures that the robot maintains the desired motion.
@@ -206,6 +209,17 @@ public class Tele extends LinearOpMode {
             rightFrontDrive.setPower(rightFrontPower);
             leftBackDrive.setPower(leftBackPower);
             rightBackDrive.setPower(rightBackPower);
+
+            if (toggle == 1){
+                x = 1;
+            } else if (toggle == 2){
+                x = 3;
+            }else if(toggle == 3){
+                toggle = 1;
+            }
+            if(gamepad1.y){
+                toggle += 1;
+            }
             // Show the elapsed game time and powers/positions.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Front left/Right", "%4.2f, %4.2f", leftFrontPower, rightFrontPower);
