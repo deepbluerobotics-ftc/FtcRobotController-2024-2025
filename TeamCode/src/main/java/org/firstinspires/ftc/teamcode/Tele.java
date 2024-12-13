@@ -213,11 +213,12 @@ public class Tele extends LinearOpMode {
             telemetry.addData("Vertical Arm/Horizontal Arm", "%4.2f, %4.2f", verticalArmPower, horizontalArmPower);
             telemetry.addData("vertical Arm Position", verticalArm.getCurrentPosition());
             telemetry.addData("horizontal Arm Position", horizontalArm.getCurrentPosition());
-            telemetry.addData("Intake Position", intake.getCurrentPosition());
+            telemetry.addData("Intake Position", ("" +intake.getCurrentPosition()));
             telemetry.addData("intake",  intakePower);
             telemetry.addData("platform", platform.getPosition());
             telemetry.addData("Intake wheel Positiion", intakeWheel.getPosition());
 
             telemetry.update();
         }
-    }}
+    }
+}
