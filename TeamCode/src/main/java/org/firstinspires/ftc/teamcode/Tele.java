@@ -137,14 +137,14 @@ public class Tele extends LinearOpMode {
             //Rotates normally
             intakePower = (gamepad1.left_trigger - gamepad1.right_trigger)/3;
             // No idea if works was an attempt for limits, but rotation?
-
+            /*
             if (intakePower > 0 && intake.getCurrentPosition() >= 0 || intakePower < 0 && intake.getCurrentPosition() <= -190){
                 intake.setPower(0);
             }else {
                 intake.setPower(intakePower);
             }
-
-            //intake.setPower(intakePower);
+            */
+            intake.setPower(intakePower);
 
 
              //Moves intake motor to be 90?
