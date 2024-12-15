@@ -63,15 +63,15 @@ public class AutoRed1 extends LinearOpMode {
         runtime.reset();
 
         // Step 1: Move forward 53 inches
-        moveForward(53); // Move 53 inches <-works moves far
+        //moveForward(53); // Move 53 inches <-works moves far
 
         // Step 2: Turn left 43.82 degrees
-        turnLeft(43.82*1.5); // Turn left 43.82 degrees <- not
+        //turnLeft(43.82*1.5); // Turn left 43.82 degrees <- not
 
         //Step 3 move arm up
         //moveArm(38.75);
         //Step 4 Rotate platform
-        platform.setPosition(0.7);
+        platform.setPosition(1);
         //setPlatformServo(70); //doesn't work
         //Step 5 Move arm down
         //moveArm(-38.75);
