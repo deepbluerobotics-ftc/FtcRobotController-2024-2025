@@ -85,16 +85,16 @@ public class Tele extends LinearOpMode {
         intakeWheel.setDirection(Servo.Direction.REVERSE);
         intake.setDirection(DcMotor.Direction.FORWARD);
         //intake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        intake.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //intake.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         verticalArm.setDirection(DcMotor.Direction.REVERSE);
         //verticalArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        verticalArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        verticalArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //verticalArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //verticalArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         horizontalArm.setDirection(DcMotor.Direction.REVERSE);
         //horizontalArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        horizontalArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        horizontalArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //horizontalArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //horizontalArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftFrontDrive.setDirection(DcMotor.Direction.FORWARD);
         leftBackDrive.setDirection(DcMotor.Direction.FORWARD);
         rightFrontDrive.setDirection(DcMotor.Direction.REVERSE);
@@ -141,10 +141,10 @@ public class Tele extends LinearOpMode {
 
             //intake motor stuff
             //Rotates normally
-            intakePower = (gamepad1.left_trigger - gamepad1.right_trigger)/3;
+            intakePower = (gamepad1.left_trigger - gamepad1.right_trigger)/2;
             // No idea if works was an attempt for limits, but rotation?
             /*
-            if (intakePower > 0 && intake.getCurrentPosition() >= 0 || intakePower < 0 && intake.getCurrentPosition() <= -210){
+            if (intakePower > 0 &&                                                                                                                                                                                                                                                                                                                                                                                                                                       intake.getCurrentPosition() >= 0 || intakePower < 0 && intake.getCurrentPosition() <= -210){
                 intake.setPower(0);
             }else {
                 intake.setPower(intakePower);
@@ -159,9 +159,9 @@ public class Tele extends LinearOpMode {
             //bucket = platform
             //platform stuff
             if(gamepad1.left_bumper){
-                platform.setPosition(0.9);
+                platform.setPosition(0.6);
             } else if ( gamepad1.right_bumper) {
-                platform.setPosition(0.4);
+                platform.setPosition(-0.1);
             }
 
 
@@ -197,7 +197,7 @@ public class Tele extends LinearOpMode {
                 horizontalArm.setPower(horizontalArmPower);
             }
             */
-            //horizontalArm.setPower(horizontalArmPower);
+                horizontalArm.setPower(horizontalArmPower);
 
             //intake "wheel"
             if(gamepad1.b){
