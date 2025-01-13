@@ -25,10 +25,12 @@ public class servoAutoTest extends LinearOpMode{
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
+        platform.setPosition(1);
+
         waitForStart();
         runtime.reset();
 
-        platform.setPosition(1);
+        platform.setPosition(0);
         
     }
 }

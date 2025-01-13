@@ -170,7 +170,7 @@ public class Tele extends LinearOpMode {
                 verticalArmPower = 1;
             }else if (gamepad1.dpad_down){
                 verticalArmPower = -1;
-            } else if (gamepad1.dpad_down && verticalArmPower == -1 || gamepad1.dpad_up && verticalArmPower == 1){
+            } else if (gamepad1.y){
                 verticalArmPower = 0;
             }
             /*
