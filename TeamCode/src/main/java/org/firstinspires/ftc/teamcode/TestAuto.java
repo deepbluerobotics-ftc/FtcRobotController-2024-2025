@@ -1,16 +1,14 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="AutonomousRed1", group="Linear OpMode")
-public class AutoRed1 extends LinearOpMode {
+@Autonomous(name="Test Autonomous", group="Linear OpMode")
+public class TestAuto extends LinearOpMode {
 
     private ElapsedTime runtime;
     //private HardwareHandler handler;
@@ -63,7 +61,7 @@ public class AutoRed1 extends LinearOpMode {
         runtime.reset();
 
         // Step 1: Move forward 53 inches
-        moveForward(53); // Move 53 inches <-works moves far
+        //moveForward(53); // Move 53 inches <-works moves far
 
         // Step 2: Turn left 43.82 degrees
         //turnLeft(43.82*1.5); // Turn left 43.82 degrees <- not
@@ -71,13 +69,17 @@ public class AutoRed1 extends LinearOpMode {
         //Step 3 move arm up
         //moveArm(38.75);
         //Step 4 Rotate platform
-        //platform.setPosition(1);
+        for(double time = runtime.milliseconds(); runtime.milliseconds()-time < 1000;){platform.setPosition(1);}
         //setPlatformServo(70); //doesn't work
         //Step 5 Move arm down
         //moveArm(-38.75);
         //Step 7 move backwards
         //moveForward(-66.5);
         //moveArm(2);
+        while(opModeIsActive()){
+            telemetry.addData("Pos: ", platform.getPosition());
+            telemetry.update();
+        }
     }
 
     // Move forward by a given distance in inches

@@ -1,16 +1,14 @@
-package org.firstinspires.ftc.teamcode;
+  package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="AutonomousRed1", group="Linear OpMode")
-public class AutoRed1 extends LinearOpMode {
+@Autonomous(name="AutonomousBlue2", group="Linear OpMode")
+public class AutoBlue2 extends LinearOpMode {
 
     private ElapsedTime runtime;
     //private HardwareHandler handler;
@@ -63,7 +61,7 @@ public class AutoRed1 extends LinearOpMode {
         runtime.reset();
 
         // Step 1: Move forward 53 inches
-        moveForward(53); // Move 53 inches <-works moves far
+        moveForward(24); // Move 53 inches <-works moves far
 
         // Step 2: Turn left 43.82 degrees
         //turnLeft(43.82*1.5); // Turn left 43.82 degrees <- not
