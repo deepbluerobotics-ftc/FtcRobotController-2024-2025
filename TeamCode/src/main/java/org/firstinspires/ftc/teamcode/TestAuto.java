@@ -69,7 +69,9 @@ public class TestAuto extends LinearOpMode {
         //Step 3 move arm up
         //moveArm(38.75);
         //Step 4 Rotate platform
-        for(double time = runtime.milliseconds(); runtime.milliseconds()-time < 1000;){platform.setPosition(1);}
+        for(double time = runtime.milliseconds(); runtime.milliseconds()-time < 1000;){
+            platform.setPosition(1);
+        }
         //setPlatformServo(70); //doesn't work
         //Step 5 Move arm down
         //moveArm(-38.75);
