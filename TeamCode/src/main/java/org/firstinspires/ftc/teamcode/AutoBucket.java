@@ -1,16 +1,14 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="AutonomousRed1", group="Linear OpMode")
-public class AutoRed1 extends LinearOpMode {
+@Autonomous(name="AutonomousBlue1", group="Linear OpMode")
+public class AutoBucket extends LinearOpMode {
 
     private ElapsedTime runtime;
     //private HardwareHandler handler;
@@ -62,22 +60,13 @@ public class AutoRed1 extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
-        // Step 1: Move forward 53 inches
-        moveForward(53); // Move 53 inches <-works moves far
-
-        // Step 2: Turn left 43.82 degrees
-        //turnLeft(43.82*1.5); // Turn left 43.82 degrees <- not
-
-        //Step 3 move arm up
-        //moveArm(38.75);
-        //Step 4 Rotate platform
-        //platform.setPosition(1);
-        //setPlatformServo(70); //doesn't work
-        //Step 5 Move arm down
-        //moveArm(-38.75);
-        //Step 7 move backwards
-        //moveForward(-66.5);
-        //moveArm(2);
+        //Tilt platform to flat
+        platform.setPosition(0.3412);
+        sleep(500);
+        //Move to bucket
+        //Move arm up
+        //Tilt platform
+        //Move Arm Down
     }
 
     // Move forward by a given distance in inches
@@ -107,6 +96,44 @@ public class AutoRed1 extends LinearOpMode {
         frontRightDrive.setPower(1.0);
         backLeftDrive.setPower(1.0);
         backRightDrive.setPower(1.0);
+
+        while (opModeIsActive() && frontLeftDrive.isBusy() && frontRightDrive.isBusy() && backLeftDrive.isBusy() && backRightDrive.isBusy()) {
+            telemetry.addData("Moving Forward", "Distance: %2.5f", inches);
+            telemetry.update();
+        }
+
+        // Stop all motors
+        frontLeftDrive.setPower(0);
+        frontRightDrive.setPower(0);
+        backLeftDrive.setPower(0);
+        backRightDrive.setPower(0);
+    }
+    public void movelEFT(double inches) {
+        double distanceInMeters = inches;
+        double WHEEL_CIRCUMFERENCE = 11.780972451;
+        double rotations = distanceInMeters / WHEEL_CIRCUMFERENCE;
+        int targetTicks = (int)(rotations * 1120); // 1120 ticks per full rotation
+
+        // Reset and set target positions for each motor
+        frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        frontLeftDrive.setTargetPosition(targetTicks);
+        frontRightDrive.setTargetPosition(targetTicks);
+        backLeftDrive.setTargetPosition(targetTicks);
+        backRightDrive.setTargetPosition(targetTicks);
+
+        frontLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        frontRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        backLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        backRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        frontLeftDrive.setPower(-1.0);
+        frontRightDrive.setPower(1.0);
+        backLeftDrive.setPower(1.0);
+        backRightDrive.setPower(-1.0);
 
         while (opModeIsActive() && frontLeftDrive.isBusy() && frontRightDrive.isBusy() && backLeftDrive.isBusy() && backRightDrive.isBusy()) {
             telemetry.addData("Moving Forward", "Distance: %2.5f", inches);
