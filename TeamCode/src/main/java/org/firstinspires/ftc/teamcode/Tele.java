@@ -66,6 +66,7 @@ public class Tele extends LinearOpMode {
 
     private int x = 1;
     private int toggle = 1;
+    private boolean endOfComp = false;
 
     @Override
     public void runOpMode() {
@@ -159,19 +160,24 @@ public class Tele extends LinearOpMode {
             //bucket = platform
             //platform stuff
             if(gamepad1.left_bumper){
-                platform.setPosition(0.6);
+                platform.setPosition(0.3412);
             } else if ( gamepad1.right_bumper) {
-                platform.setPosition(-0.1);
+                platform.setPosition(0.1529);
             }
+            //Upright is 0.6275
 
 
             //Veritcal arm stuff
             if (gamepad1.dpad_up){
                 verticalArmPower = 1;
+                endOfComp = false;
             }else if (gamepad1.dpad_down){
                 verticalArmPower = -1;
-            } else if (gamepad1.y){
+            } else if (endOfComp == false){
                 verticalArmPower = 0;
+            }
+            if (gamepad1.a){
+                endOfComp = true;
             }
             /*
             if (verticalArmPower > 0 && verticalArm.getCurrentPosition() >= 4380 || verticalArmPower < 0 && verticalArm.getCurrentPosition() <= 0){
@@ -201,11 +207,9 @@ public class Tele extends LinearOpMode {
 
             //intake "wheel"
             if(gamepad1.b){
-                intakeWheel.setPosition(0.9);
+                intakeWheel.setPosition(0.7);
             } else if (gamepad1.x) {
                 intakeWheel.setPosition(0.1);
-            }else {
-                intakeWheel.setPosition(0.5);
             }
 
             // Send calculated power to wheels
@@ -215,7 +219,7 @@ public class Tele extends LinearOpMode {
             rightBackDrive.setPower(rightBackPower);
 
             if (toggle == 1){
-                x = 1;
+                x = 2;
             } else if (toggle == 2){
                 x = 3;
             }else if(toggle == 3){
