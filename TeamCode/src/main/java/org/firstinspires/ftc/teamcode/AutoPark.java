@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name="AutonomousBlue1", group="Linear OpMode")
-public class AutoBucket extends LinearOpMode {
+public class AutoPark extends LinearOpMode {
 
     private ElapsedTime runtime;
     //private HardwareHandler handler;
@@ -60,25 +60,9 @@ public class AutoBucket extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
-        //Tilt platform to flat
-        platform.setPosition(0.3412);
-        sleep(500);
-        //Move to bucket
-        moveForward(12, 1);
-        //rotate
-        turnLeft(45,1);
-        //move intake arm out of the way
-        rotateIntake(90,0.25); //Not sure if this will work
-        //Move arm up
-        moveArm(45,1);
-        //Tilt platform
-        platform.setPosition(0.1529);
-        sleep(500);
-        //Move Arm Down
-        moveArm(-45, 1);
-        //Unrotate
-        turnLeft(-45,1);
-        //Need more info to continue
+        //drive forward and wait
+        moveForward(14,1);
+
     }
 
     // Move forward by a given distance in inches
