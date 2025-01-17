@@ -7,8 +7,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="Test Autonomous", group="Linear OpMode")
-public class TestAuto extends LinearOpMode {
+@Autonomous(name="AutoBucketOld", group="Linear OpMode")
+public class AutoBucketOrignal4pters extends LinearOpMode {
 
     private ElapsedTime runtime;
     //private HardwareHandler handler;
@@ -60,7 +60,25 @@ public class TestAuto extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
-        rotateIntake(-60,1); //Arm is 11 in + 4 ish for claw
+        //Tilt platform to flat
+        platform.setPosition(0.3412);
+        sleep(500);
+        //Move to bucket
+        moveForward(7, 1);
+        //rotate
+        turnLeft(100,1);
+        //Move arm up
+        moveArm(50,1);
+        //Tilt platform
+        platform.setPosition(0.1529);
+        sleep(500);
+        //Move Arm Down
+        moveArm(-50, 1);
+        //Unrotate
+        turnLeft(-100,1);
+        //move forward
+
+
     }
 
     // Move forward by a given distance in inches

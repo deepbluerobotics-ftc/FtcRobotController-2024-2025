@@ -64,7 +64,7 @@ public class Tele extends LinearOpMode {
     private int verticalArmPos = 0;
     private int horizontalArmPos = 0;
 
-    private int x = 1;
+    private int x = ;
     private int toggle = 1;
     private boolean endOfComp = false;
 
@@ -163,6 +163,8 @@ public class Tele extends LinearOpMode {
                 platform.setPosition(0.3412);
             } else if ( gamepad1.right_bumper) {
                 platform.setPosition(0.1529);
+            }else if (gamepad1.y){
+                platform.setPosition(0.6275);
             }
             //Upright is 0.6275
 
@@ -218,16 +220,7 @@ public class Tele extends LinearOpMode {
             leftBackDrive.setPower(leftBackPower);
             rightBackDrive.setPower(rightBackPower);
 
-            if (toggle == 1){
-                x = 2;
-            } else if (toggle == 2){
-                x = 3;
-            }else if(toggle == 3){
-                toggle = 1;
-            }
-            if(gamepad1.y){
-                toggle += 1;
-            }
+
             // Show the elapsed game time and powers/positions.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Front left/Right", "%4.2f, %4.2f", leftFrontPower, rightFrontPower);
