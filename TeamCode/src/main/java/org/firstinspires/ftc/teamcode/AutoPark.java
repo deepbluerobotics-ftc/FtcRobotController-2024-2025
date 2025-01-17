@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="AutonomousBlue1", group="Linear OpMode")
+@Autonomous(name="AutoPark", group="Linear OpMode")
 public class AutoPark extends LinearOpMode {
 
     private ElapsedTime runtime;
@@ -61,7 +61,7 @@ public class AutoPark extends LinearOpMode {
         runtime.reset();
 
         //drive forward and wait
-        moveForward(14,1);
+        moveForward(8,1);
 
     }
 

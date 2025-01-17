@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="AutonomousBlue1", group="Linear OpMode")
+@Autonomous(name="AutoBucket", group="Linear OpMode")
 public class AutoBucket extends LinearOpMode {
 
     private ElapsedTime runtime;
@@ -64,21 +64,20 @@ public class AutoBucket extends LinearOpMode {
         platform.setPosition(0.3412);
         sleep(500);
         //Move to bucket
-        moveForward(12, 1);
+        moveForward(7, 1);
         //rotate
-        turnLeft(45,1);
-        //move intake arm out of the way
-        rotateIntake(90,0.25); //Not sure if this will work
+        turnLeft(100,1);
         //Move arm up
-        moveArm(45,1);
+        moveArm(50,1);
         //Tilt platform
         platform.setPosition(0.1529);
         sleep(500);
         //Move Arm Down
-        moveArm(-45, 1);
+        moveArm(-50, 1);
         //Unrotate
-        turnLeft(-45,1);
-        //Need more info to continue
+        turnLeft(-100,1);
+        //move forward
+
     }
 
     // Move forward by a given distance in inches
