@@ -68,12 +68,13 @@ public class AutoBucketOrignal4pters extends LinearOpMode {
         //rotate
         turnLeft(100,1);
         //Move arm up
-        moveArm(50,1);
+        moveArm(39.5,1);
         //Tilt platform
         platform.setPosition(0.1529);
         sleep(500);
         //Move Arm Down
-        moveArm(-50, 1);
+        moveArm(-17
+                \, 1);
         //Unrotate
         turnLeft(-100,1);
         //move forward

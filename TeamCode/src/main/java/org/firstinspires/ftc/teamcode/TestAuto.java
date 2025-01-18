@@ -60,7 +60,7 @@ public class TestAuto extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
-        rotateIntake(-60,1); //Arm is 11 in + 4 ish for claw
+        moveArm(39.5,1); //45 to big
     }
 
     // Move forward by a given distance in inches

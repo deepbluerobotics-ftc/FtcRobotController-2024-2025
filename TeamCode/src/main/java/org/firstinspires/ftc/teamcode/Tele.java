@@ -64,7 +64,7 @@ public class Tele extends LinearOpMode {
     private int verticalArmPos = 0;
     private int horizontalArmPos = 0;
 
-    private int x = ;
+    private int x = 3;
     private int toggle = 1;
     private boolean endOfComp = false;
 

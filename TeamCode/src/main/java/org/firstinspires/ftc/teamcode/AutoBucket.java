@@ -64,48 +64,50 @@ public class AutoBucket extends LinearOpMode {
         platform.setPosition(0.3412);
         sleep(500);
         //Move to bucket
-        moveForward(7, 1);
+        moveForward(9, 1);
         //rotate
         turnLeft(100,1);
         //Move arm up
-        moveArm(60,1);
+        moveArm(39.5,1);
         //Tilt platform
         platform.setPosition(0.1529);
         sleep(500);
         //move backword
         moveForward(-2,1);
         //Move Arm Down
-        moveArm(-50, 1);
+        moveArm(-17, 1);
         //Unrotate
-        turnLeft(-100,1);
-        telemetry.addData("Made it through the first half", platform);
-        //move forward
-        moveForward(-3,1);
-        //rotate intake
-        rotateIntake(-60,1);
-        //close claw
-        intakeWheel.setPosition(0.1);
+        turnLeft(225,1);
+        //untilt
+        platform.setPosition(0.3412);
         sleep(500);
+        //move forward
+        moveForward(-4,1);
+        //rotate intake
+        rotateIntake(-60,0.25);
+        //close claw
+        intakeWheel.setPosition(0.7);
+        sleep(800);
         //unrotate intake
         rotateIntake(60,1);
         //open claw
-        intakeWheel.setPosition(0.7);
+        intakeWheel.setPosition(0.1);
         sleep(500);
         //move forward
-        moveForward(-5,1);
+        moveForward(4,1);
         //turn left
-        turnLeft(100,1);
+        turnLeft(-125,1);
         //move arm
-        moveArm(50,1);
+        moveArm(39.5,1);
         //tilt platform
         platform.setPosition(0.1529);
         sleep(500);
         //move away
-        moveForward(-2,1);
+        //moveForward(-2,1);
         //move arm down
-        moveArm(-50,1);
+        //moveArm(-10,1);
         //unturn
-        turnLeft(-100,1);
+        //turnLeft(-100,1);
 
     }
 
